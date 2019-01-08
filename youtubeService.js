@@ -96,11 +96,22 @@ const checkTokens = async () => {
   }
 };
 
+const respond = newMessages => {
+  newMessages.forEach(message => {
+    const messageText = message.snippet.displayMessage.toLowerCase();
+    if (messageText.includes('thank')) {
+      const author = message.authorDetails.displayName;
+      const response = `You're welcome ${author}!`;
+      youtubeService.insertMessage(response);
+    }
+  });
+};
+
 const getChatMessages = async () => {
   const response = await youtube.liveChatMessages.list({
     auth,
-    part: 'snippet',
-    liveChatId: chatId,
+    part: 'snippet,authorDetails',
+    liveChatId,
     pageToken: nextPage
   });
   const { data } = response;
@@ -108,6 +119,7 @@ const getChatMessages = async () => {
   chatMessages.push(...newMessages);
   nextPage = data.nextPageToken;
   console.log('Total Chat Messages:', chatMessages.length);
+  respond(newMessages);
 };
 
 youtubeService.startTrackingChat = () => {
