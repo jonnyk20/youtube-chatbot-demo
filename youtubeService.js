@@ -68,7 +68,7 @@ youtubeService.findActiveChat = async () => {
   const response = await youtube.liveBroadcasts.list({
     auth,
     part: 'snippet',
-    broadcastStatus: 'active'
+    mine: 'true'
   });
   const latestChat = response.data.items[0];
   liveChatId = latestChat.snippet.liveChatId;
