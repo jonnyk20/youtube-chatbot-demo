@@ -71,8 +71,13 @@ youtubeService.findActiveChat = async () => {
     mine: 'true'
   });
   const latestChat = response.data.items[0];
-  liveChatId = latestChat.snippet.liveChatId;
-  console.log('Chat ID Found:', liveChatId);
+
+  if (latestChat && latestChat.snippet.liveChatId) {
+    liveChatId = latestChat.snippet.liveChatId;
+    console.log("Chat ID Found:", liveChatId);
+  } else {
+    console.log("No Active Chat Found");
+  }
 };
 
 // Update the tokens automatically when they expire
