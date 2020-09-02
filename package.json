@@ -12,6 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
-    "googleapis": "^36.0.0"
+    "googleapis": "^39.1.0"
   }
 }
